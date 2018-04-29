@@ -6,12 +6,12 @@ let $searchBtn = document.querySelector("#search");
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
-let filteredRecords = data
+let filteredRecords = data.slice(0,20)
 
 function renderTable(){
     $tbody.innerHTML = "";
     let len = filteredRecords.length
-    //let len = 100 //lets just do 100 rows for now
+    
     for (let i = 0; i < len; i++){
         
         //get records for row
@@ -25,7 +25,8 @@ function renderTable(){
             //build out the row
             let field = fields[j]
             let $cell = $row.insertCell(j);
-            $cell.innnerText = record[field];
+            console.log(record[field])
+            $cell.innerText = record[field];
         }
     }
 }
