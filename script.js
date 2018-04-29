@@ -1,6 +1,6 @@
 
 let $tbody = document.querySelector("tbody");
-let $CountryInput = document.querySelector("#country");
+let $stateInput = document.querySelector("#state");
 let $dateInput = document.querySelector("#date");
 let $searchBtn = document.querySelector("#search");
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
@@ -35,18 +35,18 @@ function renderTable(){
 function handleSearchButtonClick() {
     // format user input
     let filterDate = $dateInput.value.trim().toLowerCase();
-    let filterCountry = $CountryInput.value.trim().toLowerCase();
+    let filterState = $stateInput.value.trim().toLowerCase();
     
     
-    console.log("search for ", filterDate, filterCountry)
+    console.log("search for ", filterDate, filterState)
     
     filteredRecords = data.filter(function(record){
         console.log(record.datetime)
         var RecordsDate = record.datetime.toLowerCase();
-        let RecordsCountry = record.country.toLowerCase();
+        let RecordsState = record.state.toLowerCase();
 
         return RecordsDate === filterDate 
-        //&& RecordsCountry === filterCountry;
+        && RecordsState === filterState;
     });
     renderTable();
 
