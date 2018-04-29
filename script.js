@@ -34,18 +34,19 @@ function renderTable(){
 
 function handleSearchButtonClick() {
     // format user input
-    let filterDate = $dateInput.value.trim();
+    let filterDate = $dateInput.value.trim().toLowerCase();
     let filterCountry = $CountryInput.value.trim().toLowerCase();
     
     
     console.log("search for ", filterDate, filterCountry)
     
     filteredRecords = data.filter(function(record){
-        var RecordsDate = record.datetime.value.trim();
-        let RecordsCountry = record.country.value.trim().toLowerCase();
+        console.log(record.datetime)
+        var RecordsDate = record.datetime.toLowerCase();
+        let RecordsCountry = record.country.toLowerCase();
 
-        return RecordsDate === filterDate &&
-               RecordsCountry === filterCountry;
+        return RecordsDate === filterDate 
+        //&& RecordsCountry === filterCountry;
     });
     renderTable();
 
