@@ -67,8 +67,19 @@ function handleSearchButtonClick() {
         || RecordsShape === filterShape;
     });
     renderTable();
+    
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+
 
 }
 
+
+
 // render table for first time load
 renderTable();
+
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
