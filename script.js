@@ -13,12 +13,12 @@ let $searchBtn = document.querySelector("#search");
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
-let filteredRecords = data.slice(0,20)
+let filteredRecords = data.slice(0,50)
 
 function renderTable(){
-    $tbody.innerHTML = "";
+    //$tbody.innerHTML = "";
     let len = filteredRecords.length
-    
+    /*
     for (let i = 0; i < len; i++){
         
         //get records for row
@@ -35,8 +35,38 @@ function renderTable(){
             console.log(record[field])
             $cell.innerText = record[field];
         }
+    }*/
+    
+    let rows = d3.select("#table_id").selectAll("tr").data(filteredRecords)
+        .enter()
+        .append();
+    
+    let cells = rows.selectAll('td').data(function(d){return d;})
+        .enter()
+        .append("td")
+        .text(function(d){return d;});
+
+    d3.select("pager").datum({portion: 0});
+    d3.select("pager").select("#next").on
+    ("click", function(d){
+        console.log("next button")
+        d.portion += 25;
+        redraw (d.portion);
+    });
+    d3.select("btn").select("#previous").on
+    ('click', function(d){
+        console.log('previous button')
+        d.portion -= 25;
+        redraw (d.portion)
+    });
+    function redraw (start) {
+        d3.select("table").selectAll("tr")
+          .style("display", function(d,i) {
+            return i >= start && i < start + 25 ? null : "none";
+        })
     }
-}
+    redraw(0);
+}  
 
 
 function handleSearchButtonClick() {
@@ -60,17 +90,20 @@ function handleSearchButtonClick() {
 
         //TO DO allow for one or more fields to be blank
 
+        if (filterDate) {
+            
+        }
+        
+
         return RecordsDate === filterDate 
-        || RecordsState === filterState
-        || RecordsCity === filterCity
-        || RecordsCountry === filterCountry
-        || RecordsShape === filterShape;
+        && RecordsState === filterState
+        && RecordsCity === filterCity
+        && RecordsCountry === filterCountry
+        && RecordsShape === filterShape;
     });
     renderTable();
     
-    $(document).ready( function () {
-        $('#table_id').DataTable();
-    } );
+
 
 
 }
@@ -80,6 +113,4 @@ function handleSearchButtonClick() {
 // render table for first time load
 renderTable();
 
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
+
