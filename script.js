@@ -16,9 +16,9 @@ $searchBtn.addEventListener("click", handleSearchButtonClick);
 let filteredRecords = data.slice(0,50)
 
 function renderTable(){
-    //$tbody.innerHTML = "";
+    $tbody.innerHTML = "";
     let len = filteredRecords.length
-    /*
+    
     for (let i = 0; i < len; i++){
         
         //get records for row
@@ -35,7 +35,7 @@ function renderTable(){
             console.log(record[field])
             $cell.innerText = record[field];
         }
-    }*/
+    }
     
     let rows = d3.select("#table_id").selectAll("tr").data(filteredRecords)
         .enter()
@@ -96,10 +96,10 @@ function handleSearchButtonClick() {
         
 
         return RecordsDate === filterDate 
-        && RecordsState === filterState
-        && RecordsCity === filterCity
-        && RecordsCountry === filterCountry
-        && RecordsShape === filterShape;
+        || RecordsState === filterState
+        || RecordsCity === filterCity
+        || RecordsCountry === filterCountry
+        || RecordsShape === filterShape;
     });
     renderTable();
     
